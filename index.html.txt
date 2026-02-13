@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>For Khuyen 😉</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Dancing+Script:wght@700&display=swap');
+        
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 50%, #fecdd3 100%);
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            touch-action: none;
+        }
+
+        .cursive {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .photo-frame {
+            border: 12px solid white;
+            border-bottom: 60px solid white;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            max-width: 300px;
+            width: 85%;
+            transform: rotate(-2deg);
+            background-color: white;
+        }
+
+        .heart-bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .floating-heart {
+            position: absolute;
+            bottom: -50px;
+            animation: floatUp linear forwards;
+            opacity: 0;
+        }
+
+        /* New class for raining cats */
+        .raining-cat {
+            position: absolute;
+            top: -50px;
+            animation: fallDown linear forwards;
+            opacity: 0;
+            z-index: 0;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* New animation for falling rain */
+        @keyframes fallDown {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        .shake {
+            animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+
+        #noBtn {
+            transition: none; /* INSTANT TELEPORTATION - No animation delay */
+            z-index: 50;
+        }
+
+        /* Smooth transition for the Yes button growing */
+        #yesBtn {
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Smooth transition for the Yes button growing */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .celebration-text {
+            animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes subtleFloat {
+            0%, 100% { transform: rotate(-2deg) translateY(0); }
+            50% { transform: rotate(1deg) translateY(-8px); }
+        }
+
+        @keyframes pulseHeart {
+            0% { transform: scale(1); box-shadow: 0 4px 6px -1px rgba(225, 29, 72, 0.3); }
+            50% { transform: scale(1.05); box-shadow: 0 15px 20px -5px rgba(225, 29, 72, 0.4); }
+            100% { transform: scale(1); box-shadow: 0 4px 6px -1px rgba(225, 29, 72, 0.3); }
+        }
+    </style>
+</head>
+<body class="h-screen w-full flex flex-col items-center justify-center p-4 selection:bg-rose-200 overflow-hidden">
+
+    <div id="heart-bg" class="heart-bg"></div>
+
+    <div class="relative z-10 text-center max-w-lg w-full flex flex-col items-center">
+        
+        <div id="imageWrapper" class="mb-8 transition-all duration-700">
+            <img 
+                id="mainImage" 
+                src="https://i.postimg.cc/yNgXVmr1/IMG-6102.avif" 
+                alt="Our Photo" 
+                class="photo-frame rounded-sm"
+                style="animation: subtleFloat 6s ease-in-out infinite;"
+                onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=600&auto=format&fit=crop'"
+            >
+        </div>
+
+        <h1 id="question" class="cursive text-4xl sm:text-6xl font-bold text-rose-700 mb-8 leading-tight drop-shadow-sm transition-all duration-300 px-4">
+            Will you be my girlfriend Khuyen? 😉
+        </h1>
+
+        <div id="buttonContainer" class="flex flex-row justify-center items-center gap-6 min-h-[120px] w-full relative">
+            <button 
+                id="yesBtn"
+                class="bg-rose-600 hover:bg-rose-700 text-white font-bold py-4 px-10 rounded-full btn-shadow transform transition-all duration-200 hover:scale-110 active:scale-95 text-xl z-20"
+                style="animation: pulseHeart 2s infinite;"
+                onclick="handleYes()"
+            >
+                Yes
+            </button>
+            
+            <button 
+                id="noBtn"
+                class="bg-rose-300 hover:bg-rose-400 text-white font-bold py-4 px-10 rounded-full btn-shadow transform transition-all duration-200 text-xl pointer-events-auto"
+                tabindex="-1"
+                onmouseover="evadeButton(event)"
+                ontouchstart="evadeButton(event)"
+                onmousedown="evadeButton(event)"
+                onfocus="evadeButton(event)"
+                onclick="handleNo(event)"
+            >
+                No
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const questionText = document.getElementById('question');
+        const mainImage = document.getElementById('mainImage');
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const heartBg = document.getElementById('heart-bg');
+
+        const PHOTOS = {
+            asking: "https://i.postimg.cc/yNgXVmr1/IMG-6102.avif",
+            happy: "https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif"
+        };
+
+        let noClickCount = 0;
+        const noPhrases = [
+            "No", "Are you sure?", "Really sure?", "Think again!", 
+            "Last chance!", "Surely not?", "You might regret this!",
+            "Give it another thought!", "Is that your final answer?",
+            "You're breaking my heart ;("
+        ];
+
+        // Restored Global proximity listener for evasion
+        document.addEventListener('mousemove', checkProximity);
+        document.addEventListener('touchmove', checkProximity);
+
+        function checkProximity(e) {
+            if (questionText.innerText.includes("YAY")) return;
+            
+            let clientX, clientY;
+            if (e.type === 'touchmove') {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            } else {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            }
+
+            const rect = noBtn.getBoundingClientRect();
+            const btnCenterX = rect.left + rect.width / 2;
+            const btnCenterY = rect.top + rect.height / 2;
+
+            const distance = Math.sqrt(
+                Math.pow(clientX - btnCenterX, 2) + 
+                Math.pow(clientY - btnCenterY, 2)
+            );
+
+            // Maximum Sensitivity: Runs away if finger/cursor is within 300px
+            if (distance < 300) {
+                evadeButton(e);
+            }
+        }
+
+        function evadeButton(event) {
+            if (questionText.innerText.includes("YAY")) return;
+            
+            // If it's a touch event, we don't prevent default here because handleNo handles it
+            // This function just moves the button
+            
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            
+            const padding = 50; 
+            const buttonWidth = noBtn.offsetWidth;
+            const buttonHeight = noBtn.offsetHeight;
+            
+            const maxX = viewportWidth - buttonWidth - padding;
+            const maxY = viewportHeight - buttonHeight - padding;
+            
+            const randomX = Math.max(padding, Math.random() * maxX);
+            const randomY = Math.max(padding, Math.random() * maxY);
+            
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        }
+
+        function handleNo(event) {
+            // This function is technically unreachable now due to the aggressive evasion,
+            // but kept as a backup just in case.
+            noClickCount++;
+            const phraseIndex = Math.min(noClickCount, noPhrases.length - 1);
+            noBtn.innerText = noPhrases[phraseIndex];
+            
+            const scaleFactor = 1 + (noClickCount * 0.3);
+            yesBtn.style.transform = `scale(${scaleFactor})`;
+            
+            noBtn.classList.add('shake');
+            setTimeout(() => { noBtn.classList.remove('shake'); }, 500);
+
+            evadeButton(event);
+        }
+
+        function handleYes() {
+            mainImage.style.animation = 'none';
+            mainImage.src = PHOTOS.happy;
+            mainImage.style.transform = "rotate(0deg) scale(1.15)";
+            
+            questionText.innerText = "YAY! I love you Khuyen! 💖";
+            questionText.classList.add('celebration-text', 'text-5xl', 'sm:text-7xl', 'pt-6');
+            
+            document.getElementById('buttonContainer').style.display = 'none';
+            // Hide the No button completely
+            noBtn.style.display = 'none';
+            
+            createConfetti();
+            setInterval(createHeart, 250);
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            const icons = ['❤️', '💖', '💝', '💕', '💗', '🌹', '🌷'];
+            heart.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            heartBg.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 5000);
+        }
+
+        function createRain() {
+            const item = document.createElement('div');
+            item.classList.add('raining-cat');
+            // Cute cat emojis, paw prints, and beautiful roses
+            const icons = ['🐱', '😸', '😻', '😽', '🐈', '🐾', '😹', '🐈‍⬛', '🌹', '🌷', '💐'];
+            item.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+            item.style.left = Math.random() * 100 + 'vw';
+            item.style.fontSize = (Math.random() * 25 + 20) + 'px';
+            // Random falling speed
+            item.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            heartBg.appendChild(item);
+            setTimeout(() => { item.remove(); }, 5000);
+        }
+
+        function createConfetti() {
+            const colors = ['#e11d48', '#f43f5e', '#fb7185', '#fecdd3', '#fbbf24'];
+            for (let i = 0; i < 120; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.style.position = 'fixed';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.top = '-10px';
+                    confetti.style.width = '10px';
+                    confetti.style.height = '10px';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.zIndex = '1000';
+                    confetti.style.borderRadius = '2px';
+                    document.body.appendChild(confetti);
+
+                    const duration = Math.random() * 3 + 2;
+                    confetti.style.transition = `top ${duration}s ease-out, transform ${duration}s linear`;
+                    
+                    requestAnimationFrame(() => {
+                        confetti.style.top = '110vh';
+                        confetti.style.transform = `rotate(${Math.random() * 720}deg)`;
+                    });
+
+                    setTimeout(() => { confetti.remove(); }, duration * 1000);
+                }, i * 10);
+            }
+        }
+
+        // Switched to createRain for the background rain
+        setInterval(() => { if (Math.random() > 0.7) createRain(); }, 300);
+    </script>
+</body>
+</html>
+
+
