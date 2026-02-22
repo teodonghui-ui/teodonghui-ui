@@ -1,27 +1,28 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>For Nguyễn Lê Bảo Khuyên 😉</title>
+    <title>Gửi Nguyễn Lê Bảo Khuyên 😉</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- html2canvas for saving images -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Dancing+Script:wght@700&display=swap');
         
+        :root {
+            --yes-scale: 1;
+        }
+
         body {
             font-family: 'Fredoka', sans-serif;
-            background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 25%, #fecdd3 50%, #fda4af 75%, #fff1f2 100%);
+            background: linear-gradient(135deg, #0a0002 0%, #3e0015 25%, #1a0008 50%, #5c001f 75%, #0a0002 100%);
             background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            animation: gradientBG 6s ease infinite;
             margin: 0;
             padding: 0;
             overflow: hidden;
             touch-action: none;
+            color: white;
         }
 
         @keyframes gradientBG {
@@ -35,14 +36,12 @@
         }
 
         .photo-frame {
-            border: 12px solid white;
-            border-bottom: 60px solid white;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
-            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-            max-width: 300px;
-            width: 85%;
-            transform: rotate(-2deg);
+            border: 8px solid white;
+            border-bottom: 40px solid white;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
             background-color: white;
+            object-fit: cover;
         }
 
         .heart-bg {
@@ -52,454 +51,503 @@
             z-index: 0;
         }
         
-        .raining-cat {
+        .raining-item {
             position: absolute;
             top: -50px;
             animation: fallDown linear forwards;
             opacity: 0;
-            z-index: 0;
+            z-index: 10;
             filter: drop-shadow(0 2px 4px rgba(244, 63, 94, 0.2));
+            pointer-events: none;
+        }
+
+        /* Wedding scene raindrops */
+        .raindrop {
+            position: absolute;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.6) 100%);
+            width: 2px;
+            height: 80px;
+            top: -100px;
+            animation: fallDown linear forwards;
+            z-index: 1;
+            pointer-events: none;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
         }
 
         @keyframes fallDown {
-            0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; }
+            0% { transform: translateY(-10vh); opacity: 0; }
             10% { opacity: 1; }
             90% { opacity: 1; }
-            100% { transform: translateY(110vh) rotate(360deg) scale(1.2); opacity: 0; }
+            100% { transform: translateY(110vh); opacity: 0; }
         }
 
         #noBtn {
-            transition: none; /* INSTANT TELEPORTATION */
+            transition: all 0.15s ease-out;
             z-index: 50;
         }
 
-        #yesBtn {
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 0 25px rgba(225, 29, 72, 0.5);
-        }
-
-        .celebration-text {
-            animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8);
-        }
-
-        @keyframes popIn {
-            0% { transform: scale(0.5); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        @keyframes subtleFloat {
-            0%, 100% { transform: rotate(-2deg) translateY(0); }
-            50% { transform: rotate(1deg) translateY(-12px); }
-        }
-
         @keyframes pulseHeart {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.7); }
-            70% { transform: scale(1.1); box-shadow: 0 0 0 25px rgba(225, 29, 72, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(225, 29, 72, 0); }
+            0% { transform: scale(var(--yes-scale)); box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.9); }
+            50% { transform: scale(calc(var(--yes-scale) * 1.15)); box-shadow: 0 0 30px 15px rgba(225, 29, 72, 0.9), 0 0 60px 30px rgba(159, 18, 57, 0.8); }
+            100% { transform: scale(var(--yes-scale)); box-shadow: 0 0 0 0 rgba(225, 29, 72, 0); }
         }
 
-        /* Voucher Styling */
-        #voucher-view {
-            display: none;
-            opacity: 0;
-            transition: opacity 1s ease;
-            position: absolute;
-            inset: 0;
-            background: rgba(255, 255, 255, 0.95);
-            z-index: 100;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+        /* Ultra-Low Intensity Bloom Reveal Animation */
+        @keyframes bloomReveal {
+            0% { opacity: 0; transform: scale(0.995) translateY(2px); filter: blur(2px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+        }
+
+        .celebrate-entrance {
+            animation: bloomReveal 1.5s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
         }
 
         .voucher-card {
             background: #fff;
-            background-image: radial-gradient(#fecdd3 2px, transparent 2px);
-            background-size: 20px 20px;
+            background-image: radial-gradient(#fecdd3 1px, transparent 1px);
+            background-size: 15px 15px;
             border: 2px dashed #fb7185;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            position: relative;
-            overflow: hidden;
-            max-width: 90%;
+            color: #333;
         }
 
         .stamp {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 80px;
-            height: 80px;
-            border: 4px solid #e11d48;
+            top: 10px;
+            right: 10px;
+            width: 60px;
+            height: 60px;
+            border: 3px solid #e11d48;
             border-radius: 50%;
             color: #e11d48;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-family: 'Courier New', Courier, monospace;
+            font-size: 10px;
             transform: rotate(-15deg);
-            opacity: 0.2;
-            font-size: 14px;
-            text-transform: uppercase;
-            text-align: center;
+            opacity: 0.3;
             pointer-events: none;
         }
 
-        /* Modal for Fallback Saving */
-        #result-modal {
-            touch-action: auto; /* Re-enable touch for long press */
+        .wedding-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://i.postimg.cc/RF8y08Bd/download.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+
+        @keyframes bellSway {
+            0%, 100% { transform: rotate(-15deg); }
+            50% { transform: rotate(15deg); }
+        }
+
+        .wedding-bell {
+            animation: bellSway 2s ease-in-out infinite;
+            display: inline-block;
+            font-size: 2.5rem;
+        }
+
+        .marriage-cert {
+            background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), 
+                        url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            border: 6px double #be123c;
+            padding: 1.25rem 1rem;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            color: #881337;
+            z-index: 10;
+        }
+
+        @media (min-width: 640px) {
+            .wedding-bell { font-size: 4rem; }
+            .marriage-cert { padding: 2.5rem 1.5rem; border-width: 10px; }
+        }
+
+        @keyframes subtleFloat {
+            0%, 100% { transform: rotate(-4deg) translateY(0) scale(1); }
+            50% { transform: rotate(4deg) translateY(-20px) scale(1.04); }
         }
     </style>
 </head>
-<body class="h-screen w-full flex flex-col items-center justify-center p-4 selection:bg-rose-200">
+<body class="h-screen w-full flex flex-col items-center justify-center p-4 overflow-hidden">
+
+    <!-- LỚP PHỦ LỐI VÀO -->
+    <div id="entry-overlay" class="fixed inset-0 bg-black z-[200] flex flex-col items-center justify-center transition-opacity duration-1000">
+        <h2 class="cursive text-4xl sm:text-6xl text-rose-500 mb-8 animate-pulse text-center px-4">
+            Anh có điều này muốn hỏi em...
+        </h2>
+        <button id="entry-btn" onclick="startProposal()" class="bg-rose-700 hover:bg-rose-600 text-white font-bold py-4 px-10 rounded-full shadow-[0_0_40px_rgba(225,29,72,0.6)] transform transition-all duration-300 hover:scale-110 active:scale-95 text-xl border-2 border-rose-400">
+            Chạm để mở 💌
+        </button>
+    </div>
 
     <div id="heart-bg" class="heart-bg"></div>
 
-    <!-- PROPOSAL VIEW -->
-    <div id="proposal-view" class="relative z-10 text-center max-w-lg w-full flex flex-col items-center transition-all duration-500">
-        
-        <div id="imageWrapper" class="mb-8 transition-all duration-700">
-            <img 
-                id="mainImage" 
-                src="https://i.postimg.cc/yNgXVmr1/IMG-6102.avif" 
-                alt="Our Photo" 
-                class="photo-frame rounded-sm"
-                style="animation: subtleFloat 5s ease-in-out infinite;"
-                onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=600&auto=format&fit=crop'"
-            >
-        </div>
+    <!-- CHẾ ĐỘ CẦU HÔN -->
+    <div id="proposal-view" class="relative z-10 text-center max-w-lg w-full flex flex-col items-center opacity-0 transition-opacity duration-1000 hidden">
+        <div id="content-container" class="flex flex-col items-center w-full transition-all duration-700">
+            <div id="imageWrapper" class="mb-8 flex flex-row justify-center items-center gap-3 sm:gap-6 w-full px-2 transition-all duration-700">
+                <!-- Applied matching aspect-ratio and size classes to make them equally large -->
+                <img id="mainImage" src="https://i.postimg.cc/yNgXVmr1/IMG-6102.avif" alt="Ảnh 1" class="photo-frame w-[45%] sm:w-60 aspect-[3/4]" style="animation: subtleFloat 3.5s ease-in-out infinite;">
+                <img id="secondImage" src="https://i.postimg.cc/W3pS7LLw/525024E0-EBDF-4916-B584-AB16AE032F6A.jpg" alt="Ảnh 2" class="photo-frame w-[45%] sm:w-60 aspect-[3/4]" style="animation: subtleFloat 4s ease-in-out infinite reverse;">
+            </div>
 
-        <h1 id="question" class="cursive text-4xl sm:text-6xl font-bold text-rose-700 mb-8 leading-tight drop-shadow-sm transition-all duration-300 px-4">
-            Will you be my girlfriend Nguyễn Lê Bảo Khuyên? 😉
-        </h1>
+            <h1 id="question" class="cursive text-3xl sm:text-4xl font-bold text-white mb-8 leading-tight drop-shadow-lg px-4 transition-all duration-500">
+                Nguyễn Lê Bảo Khuyên làm bạn gái anh nha rồi cho anh làm ‘đồ đáng ghét’ của riêng em được không? 😉
+            </h1>
 
-        <div id="buttonContainer" class="flex flex-row justify-center items-center gap-6 min-h-[120px] w-full relative z-50">
-            <button 
-                id="yesBtn"
-                class="bg-rose-600 hover:bg-rose-700 text-white font-bold py-4 px-10 rounded-full transform transition-all duration-200 hover:scale-110 active:scale-95 text-xl z-20"
-                style="animation: pulseHeart 1.5s infinite;"
-                onclick="handleYes()"
-            >
-                Yes
-            </button>
-            
-            <button 
-                id="noBtn"
-                class="bg-rose-300 hover:bg-rose-400 text-white font-bold py-4 px-10 rounded-full shadow-lg transform transition-all duration-200 text-xl pointer-events-auto"
-                tabindex="-1"
-                onmouseover="evadeButton(event)"
-                ontouchstart="evadeButton(event)"
-                onclick="evadeButton(event)"
-            >
-                No
-            </button>
+            <div id="buttonContainer" class="flex flex-row justify-center items-center gap-6 min-h-[120px] w-full relative transition-all duration-500">
+                <button id="yesBtn" onclick="handleYes()" class="bg-rose-600 hover:bg-rose-700 text-white font-bold py-4 px-10 rounded-full text-xl z-20 shadow-lg transition-all duration-200" style="animation: pulseHeart 1.2s infinite;">
+                    Đồng ý
+                </button>
+                <button id="noBtn" onmouseover="evadeButton()" ontouchstart="evadeButton()" onclick="evadeButton()" class="bg-rose-300 text-white font-bold py-4 px-10 rounded-full text-xl shadow-lg">
+                    Không
+                </button>
+            </div>
         </div>
     </div>
 
-    <!-- VOUCHER VIEW -->
-    <div id="voucher-view" class="p-4 w-full flex flex-col items-center">
-        <!-- The Card to Capture -->
-        <div id="voucher-card" class="voucher-card w-full max-w-sm p-6 rounded-lg mb-8 transform rotate-1 hover:rotate-0 transition-transform duration-300 bg-white text-center shadow-xl">
-            <div class="border-b-2 border-rose-200 pb-3 mb-3">
-                <h2 class="cursive text-4xl text-rose-600 font-bold">Valentine's Voucher</h2>
-                <p class="text-rose-400 text-xs tracking-[0.2em] mt-1 font-bold">OFFICIAL DATE PROOF</p>
+    <!-- CHẾ ĐỘ VOUCHER -->
+    <div id="voucher-view" class="p-4 w-full flex-col items-center hidden opacity-0 transition-opacity duration-1000 z-50">
+        <div id="voucher-card" class="voucher-card w-full max-w-sm p-6 rounded-xl mb-8 relative shadow-2xl text-center">
+            <div class="border-b-2 border-rose-200 pb-3 mb-4">
+                <h2 class="cursive text-3xl text-rose-600 font-bold">Valentine's Voucher</h2>
+                <p class="text-rose-400 text-[10px] tracking-widest font-bold">CHỨNG NHẬN HẸN HÒ CHÍNH THỨC</p>
             </div>
             
-            <p class="text-gray-700 text-base leading-relaxed font-medium mb-6 italic">
-                "Anh xin lỗi vì hôm nay không ở bên em được, coi tin nhắn này như bằng chứng là anh còn nợ em một buổi hẹn hò Valentine… nếu em cho phép anh được đưa em đi chơi đó nha 😜"
+            <p class="text-gray-700 text-sm sm:text-base leading-relaxed mb-6 italic px-2">
+                "Xin lỗi vì anh đã đến muộn và không thể ở bên em vào dịp Valentine này. Nhưng hãy để voucher này như một lời hứa từ anh: Vào tất cả các ngày Valentine và những dịp đặc biệt sắp tới, anh sẽ luôn ở bên em. Và đây cũng là bằng chứng cho một bữa tối Valentine mà anh nợ em nhé 😜💕"
             </p>
 
-            <!-- Formal details section with colored background for visibility -->
-            <div class="bg-rose-50 rounded-lg p-4 border border-rose-100 flex flex-col gap-2">
-                <div class="flex justify-between items-center border-b border-rose-200 pb-2">
-                    <span class="text-xs text-rose-400 font-bold uppercase">ISSUED BY:</span>
-                    <!-- Reduced text size here from text-lg to text-base -->
-                    <span class="font-bold text-gray-800 text-base">DongHui ❤️</span>
+            <div class="bg-rose-50 rounded-lg p-4 border border-rose-100 flex flex-col gap-2 text-left">
+                <div class="flex justify-between items-center border-b border-rose-100 pb-1">
+                    <span class="text-[10px] text-rose-400 font-bold">NGƯỜI CẤP:</span>
+                    <span class="font-bold text-gray-800">DongHui ❤️</span>
                 </div>
-                <div class="flex justify-between items-center pt-1">
-                    <span class="text-xs text-rose-400 font-bold uppercase">VALID FOR:</span>
-                    <!-- Reduced text size here from text-lg to text-base -->
-                    <span class="font-bold text-gray-800 text-base">Nguyễn Lê Bảo Khuyên</span>
+                <div class="flex justify-between items-start pt-1">
+                    <span class="text-[10px] text-rose-400 font-bold shrink-0">DÀNH CHO:</span>
+                    <span class="font-bold text-gray-800 text-xs text-right ml-4 leading-tight">Nguyễn Lê Bảo Khuyên</span>
                 </div>
             </div>
-
-            <div class="stamp">
-                DATE<br>VALID
-            </div>
+            <div class="stamp">OFFICIAL<br>LOVE</div>
         </div>
 
-        <!-- Action Buttons -->
-        <button 
-            id="saveBtn"
-            onclick="downloadVoucher()"
-            class="bg-rose-600 text-white font-bold py-4 px-10 rounded-full shadow-xl hover:bg-rose-700 active:scale-95 transition-all flex items-center gap-3 mb-6 text-lg"
-        >
-            <span class="text-2xl">📸</span> Save to Photos
+        <button onclick="downloadVoucher()" id="saveBtn" class="bg-rose-600 text-white font-bold py-4 px-10 rounded-full shadow-xl hover:bg-rose-700 mb-4 text-lg transition-all active:scale-95 flex items-center gap-2">
+            <span>📸</span> Lưu hình ảnh
         </button>
+        <button onclick="location.reload()" class="text-rose-400 underline text-sm">Chơi lại</button>
+    </div>
+
+    <!-- CHẾ ĐỘ ĐÁM CƯỚI -->
+    <div id="wedding-view" class="fixed inset-0 wedding-bg hidden opacity-0 transition-opacity duration-1000 flex flex-col items-center sm:items-end justify-center p-4 sm:p-6 sm:pr-20 z-[150] text-center">
+        <div id="wedding-rain-container" class="absolute inset-0 pointer-events-none overflow-hidden z-0"></div>
         
-        <button 
-            onclick="location.reload()"
-            class="text-rose-400 underline text-sm hover:text-rose-600"
-        >
-            Play Again
-        </button>
-    </div>
-
-    <!-- Fallback Result Modal (For desktop or if Share API fails) -->
-    <div id="result-modal" class="fixed inset-0 bg-black/80 z-[200] hidden flex-col items-center justify-center p-4 backdrop-blur-sm">
-        <div class="bg-white p-4 rounded-xl max-w-sm w-full text-center relative shadow-2xl animate-bounce-in">
-            <button onclick="closeModal()" class="absolute top-2 right-2 text-gray-400 hover:text-gray-800 p-2">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
-            <h3 class="text-rose-600 font-bold text-2xl mb-1 cursive">Voucher Ready!</h3>
-            <p class="text-gray-500 text-sm mb-4">Long-press image -> "Save to Photos"</p>
-            
-            <div class="border-2 border-rose-100 rounded-lg overflow-hidden">
-                <img id="generated-image" class="w-full h-auto" alt="Voucher Proof">
+        <div class="marriage-cert w-[88%] sm:w-[92%] max-w-md rounded-lg relative z-10">
+            <div class="mb-2 sm:mb-4">
+                <span class="wedding-bell">🔔</span>
+                <span class="wedding-bell" style="animation-delay: 0.5s;">🔔</span>
             </div>
             
-            <a id="download-link" class="block mt-4 text-rose-500 underline text-sm cursor-pointer hover:text-rose-700">
-                Download manually
-            </a>
+            <h2 class="cursive text-2xl sm:text-5xl mb-2 sm:mb-4 font-bold">Giấy Chứng Nhận Kết Hôn</h2>
+            <div class="h-px bg-rose-300 w-full mb-3 sm:mb-6"></div>
+            
+            <p class="text-xs sm:text-lg mb-1 sm:mb-4 font-medium uppercase tracking-tight">Văn bản này chứng nhận rằng</p>
+            <p class="cursive text-2xl sm:text-4xl font-bold text-rose-800 mb-1 sm:mb-2">Nguyễn Lê Bảo Khuyên</p>
+            <p class="text-[10px] sm:text-base mb-1 sm:mb-2 font-medium">đã chính thức sở hữu</p>
+            <p class="cursive text-2xl sm:text-4xl font-bold text-rose-800 mb-3 sm:mb-6">'Đồ đáng ghét' DongHui</p>
+            
+            <p class="italic text-[10px] sm:text-sm text-gray-800 mb-3 sm:mb-6 font-medium bg-white/60 rounded py-1.5 px-2">"Giờ đây hai bạn có thể trao nhau nụ hôn và tận hưởng hạnh phúc trọn đời."</p>
+            
+            <div class="flex justify-around items-center text-xl sm:text-4xl mb-1 sm:mb-4">
+                <span>💍</span>
+                <span class="text-rose-600">❤️</span>
+                <span>💍</span>
+            </div>
+        </div>
+        
+        <p class="mt-4 sm:mt-8 cursive text-lg sm:text-3xl animate-bounce text-white font-bold drop-shadow-lg relative z-10">Sớm đi hưởng tuần trăng mật thôi em ơi! Em thích đi nước nào cứ chọn nha 😜</p>
+        <button onclick="location.reload()" class="mt-3 sm:mt-8 bg-white/20 backdrop-blur-md text-white px-6 sm:px-8 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-bold shadow-lg border border-white/30 hover:bg-white/30 transition-all relative z-10">Quay lại</button>
+    </div>
+
+    <!-- Modal kết quả -->
+    <div id="result-modal" class="fixed inset-0 bg-black/90 z-[300] hidden flex-col items-center justify-center p-4 backdrop-blur-md">
+        <div class="bg-white p-6 rounded-2xl max-w-sm w-full text-center relative shadow-2xl">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 text-2xl">&times;</button>
+            <h3 class="text-rose-600 font-bold text-2xl mb-2 cursive">Voucher đã sẵn sàng!</h3>
+            <p class="text-gray-500 text-xs mb-4">Nhấn giữ hình ảnh để lưu vào điện thoại</p>
+            <div class="border border-rose-100 rounded-lg overflow-hidden">
+                <img id="generated-image" class="w-full h-auto" alt="Voucher">
+            </div>
+            <a id="download-link" class="block mt-4 text-rose-500 underline text-sm font-bold">Tải file về</a>
         </div>
     </div>
+
+    <audio id="bgMusic" loop src="https://www.dropbox.com/scl/fi/l37yuc90otnssil6h58xk/RINI-Red-Lights-ft.-Wale-Official-Lyric-Video.mp3?rlkey=wmqjwhb4ikgphtdqh5x0szwg2&st=i2dgjeq4&raw=1"></audio>
+
+    <button id="musicToggle" onclick="toggleMusic()" class="fixed bottom-6 right-6 z-[100] bg-black/50 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg border border-white/20">
+        <span id="musicIcon">🔇</span>
+    </button>
 
     <script>
-        const questionText = document.getElementById('question');
-        const mainImage = document.getElementById('mainImage');
-        const yesBtn = document.getElementById('yesBtn');
-        const noBtn = document.getElementById('noBtn');
-        const heartBg = document.getElementById('heart-bg');
+        const bgMusic = document.getElementById('bgMusic');
+        const musicIcon = document.getElementById('musicIcon');
+        const entryOverlay = document.getElementById('entry-overlay');
         const proposalView = document.getElementById('proposal-view');
         const voucherView = document.getElementById('voucher-view');
+        const weddingView = document.getElementById('wedding-view');
+        const weddingRainContainer = document.getElementById('wedding-rain-container');
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const questionText = document.getElementById('question');
         const buttonContainer = document.getElementById('buttonContainer');
+        const contentContainer = document.getElementById('content-container');
+        const heartBg = document.getElementById('heart-bg');
+        
+        let isMusicPlaying = false;
+        let noTriggerCount = 0;
+        let rainingIcons = ['💋', '🔥', '🌶️', '🥵', '😏', '❤️‍🔥', '😈', '⛓️', '🖤', '💦'];
+        let isWeddingMode = false;
 
-        const PHOTOS = {
-            asking: "https://i.postimg.cc/yNgXVmr1/IMG-6102.avif",
-            happy: "https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif"
-        };
+        const persuadeMessages = [
+            "Em chắc chưa? 🥺",
+            "Thật sự chắc chắn sao? 😢",
+            "Nghĩ lại đi mà! 😭",
+            "Nhưng anh là 'đồ đáng ghét' của em mà! 😈",
+            "Đừng làm tan nát trái tim anh... 💔",
+            "Anh sẽ buồn lắm đó... 😿",
+            "Nhìn ảnh chúng mình lại đi! ❤️",
+            "Bấm 'Đồng ý' đi mà em yêu! 😘",
+            "Anh không cho em nói không đâu! 😂"
+        ];
 
-        // Global listeners to catch fingers/cursors before they even hit the button
-        document.addEventListener('mousemove', checkProximity);
-        document.addEventListener('touchmove', checkProximity);
-        document.addEventListener('touchstart', checkProximity);
+        document.addEventListener('mousemove', handleProximity);
+        document.addEventListener('touchmove', handleProximity);
 
-        function checkProximity(e) {
-            if (questionText.innerText.includes("YAY")) return;
-            
-            let clientX, clientY;
-            if (e.type === 'touchmove' || e.type === 'touchstart') {
-                clientX = e.touches[0].clientX;
-                clientY = e.touches[0].clientY;
-            } else {
-                clientX = e.clientX;
-                clientY = e.clientY;
-            }
-
+        function handleProximity(e) {
+            if (!noBtn || questionText.innerText.includes("Yaysss")) return;
+            let x = e.clientX || (e.touches && e.touches[0].clientX);
+            let y = e.clientY || (e.touches && e.touches[0].clientY);
             const rect = noBtn.getBoundingClientRect();
-            const btnCenterX = rect.left + rect.width / 2;
-            const btnCenterY = rect.top + rect.height / 2;
-
-            const distance = Math.sqrt(
-                Math.pow(clientX - btnCenterX, 2) + 
-                Math.pow(clientY - btnCenterY, 2)
-            );
-
-            if (distance < 350) {
-                evadeButton(e);
-            }
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const dist = Math.sqrt(Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2));
+            if (dist < 100) evadeButton();
         }
 
-        function evadeButton(event) {
-            if (questionText.innerText.includes("YAY")) return;
-            if (event) event.preventDefault(); 
-            
-            const viewportWidth = window.innerWidth;
-            const viewportHeight = window.innerHeight;
-            
-            const padding = 50; 
-            const buttonWidth = noBtn.offsetWidth;
-            const buttonHeight = noBtn.offsetHeight;
-            
-            const maxX = viewportWidth - buttonWidth - padding;
-            const maxY = viewportHeight - buttonHeight - padding;
-            
-            const randomX = Math.max(padding, Math.random() * maxX);
-            const randomY = Math.max(padding, Math.random() * maxY);
-            
+        function evadeButton() {
+            if (questionText.innerText.includes("Yaysss")) return;
+            const x = Math.random() * (window.innerWidth - 120) + 60;
+            const y = Math.random() * (window.innerHeight - 80) + 40;
             noBtn.style.position = 'fixed';
-            noBtn.style.left = randomX + 'px';
-            noBtn.style.top = randomY + 'px';
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+            noTriggerCount++;
+            const msgIndex = Math.min(noTriggerCount - 1, persuadeMessages.length - 1);
+            questionText.innerText = persuadeMessages[msgIndex];
+            const newScale = Math.min(1 + (noTriggerCount * 0.08), 3.5);
+            document.documentElement.style.setProperty('--yes-scale', newScale);
+            yesBtn.style.fontSize = (20 + noTriggerCount * 1) + 'px';
+        }
+
+        function startProposal() {
+            bgMusic.play().then(() => {
+                isMusicPlaying = true;
+                musicIcon.innerText = '🔊';
+            }).catch(err => console.log("Music blocked"));
+            entryOverlay.style.opacity = '0';
+            setTimeout(() => {
+                entryOverlay.style.display = 'none';
+                proposalView.classList.remove('hidden');
+                setTimeout(() => proposalView.style.opacity = '1', 50);
+            }, 1000);
+            
+            setInterval(() => {
+                createRainItem();
+                if (isWeddingMode) createRaindrop();
+            }, 350); 
+        }
+
+        function toggleMusic() {
+            if (isMusicPlaying) {
+                bgMusic.pause();
+                musicIcon.innerText = '🔇';
+            } else {
+                bgMusic.play().catch(() => {});
+                musicIcon.innerText = '🔊';
+            }
+            isMusicPlaying = !isMusicPlaying;
         }
 
         function handleYes() {
-            mainImage.style.animation = 'none';
-            mainImage.src = PHOTOS.happy;
-            mainImage.style.transform = "rotate(0deg) scale(1.15)";
+            const mainImg = document.getElementById('mainImage');
+            const secImg = document.getElementById('secondImage');
             
-            questionText.innerText = "YAYY!! Anh nhớ bé Bảo Khuyên của anh quáaa, một tuần nữa gặp em ở HCM nhé. Yêu em 😜❤️";
-            questionText.classList.add('celebration-text', 'text-4xl', 'sm:text-6xl', 'pt-6');
+            contentContainer.style.transition = "all 0.5s ease-in-out";
+            contentContainer.style.opacity = '0';
+            contentContainer.style.filter = 'blur(2px)';
             
-            // Remove the No Button
-            noBtn.remove();
-            
-            // Clear the button container to remove Yes button and prep for Next button
-            buttonContainer.innerHTML = ''; 
-
-            createConfetti();
-            setInterval(createHeart, 200);
-
-            // Wait 1.5 seconds then show the Next button inside the existing container
             setTimeout(() => {
-                const nextBtn = document.createElement('button');
-                nextBtn.innerHTML = "Click for a Surprise ➡️";
-                nextBtn.className = "bg-white text-rose-600 font-bold py-4 px-8 rounded-full shadow-2xl hover:bg-gray-50 transform hover:scale-105 transition-all text-xl border-4 border-rose-200 z-50 animate-bounce";
-                nextBtn.onclick = showVoucher;
-                buttonContainer.appendChild(nextBtn);
-            }, 1500);
+                document.documentElement.style.setProperty('--yes-scale', 1);
+                mainImg.src = "https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif";
+                mainImg.style.width = "75%";
+                mainImg.style.animation = "none";
+                mainImg.style.transform = "rotate(0deg)";
+                if (secImg) secImg.style.display = 'none';
+
+                questionText.innerText = "Yaysss!! Anh nhớ em nhiều lắm Su! Hẹn sớm gặp em ở HCMC nhé! Anh đang rất hào hứng và mong chờ chuyến đi của chúng mình. Anh yêu em 💕";
+                questionText.className = "cursive text-2xl sm:text-4xl text-rose-300 mt-6 leading-relaxed px-4 text-center";
+                
+                noBtn.remove();
+                buttonContainer.innerHTML = '';
+                
+                contentContainer.style.filter = 'blur(0px)';
+                contentContainer.classList.add('celebrate-entrance');
+                contentContainer.style.opacity = '1';
+
+                for(let i=0; i<60; i++) {
+                    setTimeout(createRainItem, i * 40);
+                }
+
+                setTimeout(() => {
+                    const nextBtn = document.createElement('button');
+                    nextBtn.innerHTML = "Nhận phần thưởng 😈⛓️";
+                    nextBtn.className = "bg-white text-rose-600 font-bold py-4 px-10 rounded-full shadow-2xl border-2 border-rose-600 mt-8 z-50 relative celebrate-entrance";
+                    nextBtn.style.animationDelay = "0.5s";
+                    nextBtn.onclick = () => {
+                        proposalView.style.opacity = '0';
+                        setTimeout(() => {
+                            proposalView.classList.add('hidden');
+                            voucherView.classList.remove('hidden');
+                            voucherView.classList.add('flex');
+                            setTimeout(() => voucherView.style.opacity = '1', 50);
+                        }, 1000);
+                    };
+                    buttonContainer.appendChild(nextBtn);
+                }, 1800);
+            }, 600);
         }
 
-        function showVoucher() {
-            // Hide the proposal view completely
-            proposalView.style.display = 'none';
-            
-            // Show the voucher view
-            voucherView.style.display = 'flex';
-            setTimeout(() => {
-                voucherView.style.opacity = '1';
-            }, 50);
+        function createRainItem() {
+            const item = document.createElement('div');
+            item.className = 'raining-item';
+            item.innerText = rainingIcons[Math.floor(Math.random() * rainingIcons.length)];
+            item.style.left = Math.random() * 100 + 'vw';
+            item.style.fontSize = Math.random() * 15 + 15 + 'px'; 
+            item.style.animationDuration = Math.random() * 2 + 3 + 's'; 
+            heartBg.appendChild(item);
+            setTimeout(() => item.remove(), 5000);
+        }
+
+        function createRaindrop() {
+            const drop = document.createElement('div');
+            drop.className = 'raindrop';
+            drop.style.left = Math.random() * 100 + 'vw';
+            const height = Math.random() * 40 + 40; 
+            const duration = Math.random() * 0.4 + 0.6;
+            drop.style.height = height + 'px';
+            drop.style.animationDuration = duration + 's';
+            weddingRainContainer.appendChild(drop);
+            setTimeout(() => drop.remove(), duration * 1000);
         }
 
         function downloadVoucher() {
             const card = document.getElementById('voucher-card');
             const btn = document.getElementById('saveBtn');
+            const originalBtnText = btn.innerHTML;
+            btn.innerHTML = "⏳ Đang xử lý...";
             
-            btn.innerHTML = "⏳ Creating Proof...";
-
-            // Temporarily remove transform for cleaner screenshot
             const originalTransform = card.style.transform;
-            card.style.transform = 'none'; // Ensure straight image
+            card.style.transform = 'none';
 
-            html2canvas(card, {
-                scale: 3, // High quality
-                backgroundColor: '#ffffff',
-                useCORS: true
+            const width = card.offsetWidth;
+            const height = card.offsetHeight;
+
+            html2canvas(card, { 
+                scale: 3, 
+                backgroundColor: '#ffffff', 
+                useCORS: true,
+                logging: false,
+                width: width,
+                height: height,
+                scrollX: 0,
+                scrollY: -window.pageYOffset,
+                onclone: (clonedDoc) => {
+                    const clonedCard = clonedDoc.getElementById('voucher-card');
+                    clonedCard.style.margin = "0";
+                    clonedCard.style.transform = "none";
+                    clonedCard.style.width = width + "px";
+                    const nameSpan = clonedCard.querySelector('.text-right');
+                    if (nameSpan) {
+                        nameSpan.style.whiteSpace = 'normal';
+                        nameSpan.style.overflow = 'visible';
+                    }
+                }
             }).then(canvas => {
-                // Restore transform immediately
                 card.style.transform = originalTransform;
-                btn.innerHTML = "📸 Save Proof";
-
-                // Convert canvas to blob for sharing
+                const dataUrl = canvas.toDataURL('image/png');
+                
                 canvas.toBlob(async (blob) => {
-                    const file = new File([blob], "Valentine_Voucher.png", { type: "image/png" });
-
-                    // Check if the browser supports the Web Share API Level 2 (File Sharing)
+                    const file = new File([blob], "ValentineVoucher.png", { type: "image/png" });
+                    
                     if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
                         try {
-                            await navigator.share({
-                                files: [file],
-                                title: 'Valentine Voucher',
-                                text: 'My Valentine Date Proof! ❤️'
-                            });
-                            btn.innerHTML = "✅ Saved!";
-                            setTimeout(() => btn.innerHTML = "📸 Save to Photos", 2000);
+                            await navigator.share({ files: [file], title: 'Valentine Voucher' });
+                            btn.innerHTML = originalBtnText;
+                            prepareWeddingTransition();
                         } catch (err) {
-                            if (err.name !== 'AbortError') {
-                                console.error("Share failed", err);
-                                showModalFallback(canvas.toDataURL('image/png'));
-                            }
+                            btn.innerHTML = originalBtnText;
+                            if (err.name !== 'AbortError') showModalFallback(dataUrl);
                         }
                     } else {
-                        // Fallback for Desktop/Older iOS
-                        showModalFallback(canvas.toDataURL('image/png'));
+                        btn.innerHTML = originalBtnText;
+                        showModalFallback(dataUrl);
                     }
                 }, 'image/png');
-
             }).catch(err => {
-                console.error("Canvas failed:", err);
-                card.style.transform = originalTransform;
-                btn.innerHTML = "❌ Error";
+                console.error("Lỗi:", err);
+                btn.innerHTML = "❌ Lỗi";
+                setTimeout(() => btn.innerHTML = originalBtnText, 2000);
             });
         }
 
         function showModalFallback(dataUrl) {
             const modal = document.getElementById('result-modal');
-            const generatedImg = document.getElementById('generated-image');
+            const genImg = document.getElementById('generated-image');
             const downloadLink = document.getElementById('download-link');
-
-            generatedImg.src = dataUrl;
+            genImg.src = dataUrl;
             downloadLink.href = dataUrl;
-            downloadLink.download = "Valentine_Voucher_Proof.png";
-            
+            downloadLink.download = "ValentineVoucher.png";
             modal.classList.remove('hidden');
             modal.classList.add('flex');
+            prepareWeddingTransition();
+        }
 
-            // Try auto-download if not on mobile
-            if (!/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-               downloadLink.click();
-            }
+        function prepareWeddingTransition() {
+            const btn = document.getElementById('saveBtn');
+            btn.innerHTML = "Tiến hành hôn lễ 💒💍";
+            btn.className = "bg-rose-900 text-white font-bold py-4 px-10 rounded-full shadow-[0_0_30px_rgba(255,255,255,0.8)] border-2 border-white mt-4 animate-bounce";
+            btn.onclick = startWeddingScene;
+        }
+
+        function startWeddingScene() {
+            voucherView.style.opacity = '0';
+            closeModal();
+            isWeddingMode = true;
+            setTimeout(() => {
+                voucherView.classList.add('hidden');
+                rainingIcons = ['💍', '💐', '🔔', '⛪', '🤍', '🥂', '🌹', '👰', '🤵'];
+                weddingView.classList.remove('hidden');
+                setTimeout(() => weddingView.style.opacity = '1', 50);
+                for(let i=0; i<25; i++) setTimeout(createRaindrop, i * 40);
+            }, 1000);
         }
 
         function closeModal() {
-            const modal = document.getElementById('result-modal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
+            document.getElementById('result-modal').classList.add('hidden');
         }
-
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('raining-cat'); 
-            const icons = ['❤️', '💖', '💝', '💕', '💗', '🌹', '🌷'];
-            heart.innerHTML = icons[Math.floor(Math.random() * icons.length)];
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
-            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
-            heartBg.appendChild(heart);
-            setTimeout(() => { heart.remove(); }, 5000);
-        }
-
-        function createRain() {
-            const item = document.createElement('div');
-            item.classList.add('raining-cat');
-            const icons = ['🐱', '😸', '😻', '😽', '🌹', '🌹', '🌷', '💐', '💖', '💕', '💘'];
-            item.innerHTML = icons[Math.floor(Math.random() * icons.length)];
-            item.style.left = Math.random() * 100 + 'vw';
-            item.style.fontSize = (Math.random() * 25 + 20) + 'px';
-            item.style.animationDuration = (Math.random() * 2 + 2) + 's';
-            heartBg.appendChild(item);
-            setTimeout(() => { item.remove(); }, 5000);
-        }
-
-        function createConfetti() {
-            const colors = ['#e11d48', '#f43f5e', '#fb7185', '#fecdd3', '#fbbf24'];
-            for (let i = 0; i < 150; i++) {
-                setTimeout(() => {
-                    const confetti = document.createElement('div');
-                    confetti.style.position = 'fixed';
-                    confetti.style.left = Math.random() * 100 + 'vw';
-                    confetti.style.top = '-10px';
-                    confetti.style.width = '10px';
-                    confetti.style.height = '10px';
-                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                    confetti.style.zIndex = '1000';
-                    confetti.style.borderRadius = '2px';
-                    document.body.appendChild(confetti);
-
-                    const duration = Math.random() * 3 + 2;
-                    confetti.style.transition = `top ${duration}s ease-out, transform ${duration}s linear`;
-                    
-                    requestAnimationFrame(() => {
-                        confetti.style.top = '110vh';
-                        confetti.style.transform = `rotate(${Math.random() * 720}deg)`;
-                    });
-
-                    setTimeout(() => { confetti.remove(); }, duration * 1000);
-                }, i * 8); 
-            }
-        }
-
-        setInterval(() => { createRain(); }, 100);
     </script>
 </body>
 </html>
